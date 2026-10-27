@@ -590,6 +590,7 @@ ifeq ($(strip $(OLED)), yes)
 	OLED_DRIVER     = ssd1306
 	MSG_OLED = yes
 	SRC += $(USER_PATH)/oled.c
+	SRC += $(USER_PATH)/sid_oled.c
 else ifeq ($(strip $(OLED)), stock)
 	OPT_DEFS += -DOLED_ENABLE
 	OLED_ENABLE     = yes
