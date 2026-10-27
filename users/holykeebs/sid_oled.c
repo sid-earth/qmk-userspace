@@ -28,7 +28,7 @@ static void write_padded(const char *s, uint8_t width) {
 }
 
 // Replaces the Keyball logo (see keyball61plus.c, made weak).
-void hk_oled_render_secondary(void) {
+void sid_oled_render_legend(void) {
   uint8_t layer = get_highest_layer(layer_state | default_layer_state);
   uint8_t mods = get_mods() | get_oneshot_mods();
 
