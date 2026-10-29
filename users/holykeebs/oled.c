@@ -2,6 +2,7 @@
 #include "quantum.h"
 #include <string.h>
 void sid_oled_render_legend(void); // sid_oled.c
+void sid_oled_render_icons(void);  // sid_oled.c
 
 #ifdef HK_BONGO_ENABLE
 #include "bongocat.h"
@@ -301,17 +302,25 @@ bool oled_task_user(void) {
   }
 
   if (is_keyboard_left()) {
-    sid_oled_render_legend();
-  } else {
 #ifdef HK_BONGO_ENABLE
-    static bool shown = false;
-    bool bongo = is_keyboard_master()
-                     ? g_hk_state.display.show_bongo_main
-                     : g_hk_state.display.show_bongo_peripheral;
-    hk_oled_render_bongo_or_panels(bongo, &shown);
+    // HK_BONGO_T (with or without shift) swaps the legend for bongocat.
+    static bool bongo_shown = false;
+    bool bongo = g_hk_state.display.show_bongo_main ||
+                 g_hk_state.display.show_bongo_peripheral;
+    if (bongo != bongo_shown) {
+      bongo_shown = bongo;
+      oled_clear();
+    }
+    if (bongo) {
+      hk_oled_render_bongo();
+    } else {
+      sid_oled_render_legend();
+    }
 #else
-    hk_oled_render_info_panels();
+    sid_oled_render_legend();
 #endif
+  } else {
+    sid_oled_render_icons();
   }
   return true;
 }

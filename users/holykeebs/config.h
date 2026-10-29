@@ -227,3 +227,7 @@
 // the VIAL_UNLOCK_COMBO on Vial).
 #define VIA_INSECURE
 #define VIAL_INSECURE
+
+#define SPLIT_MODS_ENABLE       // show held modifiers on the half without USB
+#define OLED_TIMEOUT 60000      // screens go dark after 60 s without keys, wheels or ball
+#define SPLIT_ACTIVITY_ENABLE   // the half without USB follows activity on both halves
