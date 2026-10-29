@@ -1,0 +1,44 @@
+diff --git a/keyboards/holykeebs/keyball61plus/keyball61plus.c b/keyboards/holykeebs/keyball61plus/keyball61plus.c
+index c90b5928cb..00b166052c 100644
+--- a/keyboards/holykeebs/keyball61plus/keyball61plus.c
++++ b/keyboards/holykeebs/keyball61plus/keyball61plus.c
+@@ -42,8 +42,7 @@ matrix_row_t matrix_mask[MATRIX_ROWS] = {
+ // panels at the driver's base rotation, the peripheral renders the logo
+ // rotated 180 (the keyball logo art is drawn for that orientation).
+ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+-    // return rotation;
+-    return is_keyboard_left() ? rotation : OLED_ROTATION_270; // rotate only right screen to portrait
++    return is_keyboard_left() ? rotation : OLED_ROTATION_270;  // Sid: right screen in portrait
+ }
+ 
+ // The peripheral half shows the Keyball logo (this board's heritage), matching
+diff --git a/keyboards/holykeebs/keyball61plus/keymaps/vial/config.h b/keyboards/holykeebs/keyball61plus/keymaps/vial/config.h
+index 68732bd909..f3c7cde1f4 100644
+--- a/keyboards/holykeebs/keyball61plus/keymaps/vial/config.h
++++ b/keyboards/holykeebs/keyball61plus/keymaps/vial/config.h
+@@ -11,7 +11,7 @@
+ // carries the lily58-style mouse buttons. Pointing/scroll behavior comes from the
+ // holykeebs userspace.
+ #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+-#define AUTO_MOUSE_DEFAULT_LAYER 2
++#define AUTO_MOUSE_DEFAULT_LAYER 2  // Sid: mouse keys live on layer 2
+ 
+ #define DYNAMIC_KEYMAP_LAYER_COUNT 8
+ 
+diff --git a/keyboards/holykeebs/keyball61plus/keymaps/vial/vial.json b/keyboards/holykeebs/keyball61plus/keymaps/vial/vial.json
+index 9330057d91..d1c0c73488 100644
+--- a/keyboards/holykeebs/keyball61plus/keymaps/vial/vial.json
++++ b/keyboards/holykeebs/keyball61plus/keymaps/vial/vial.json
+@@ -99,7 +99,11 @@
+       "name": "HK_ENC_SCR_D",
+       "title": "Scroll down by one scroll wheel detent",
+       "shortName": "Scrl\nDn"
+-    }
++    },
++        {"name": "SID_MOTO", "title": "Screensaver: motorcycle on a night road", "shortName": "Moto"},
++        {"name": "SID_PINES", "title": "Screensaver: night sky over pines", "shortName": "Pines"},
++        {"name": "SID_WINDOW", "title": "Screensaver: rainy window", "shortName": "Rain"},
++        {"name": "SID_RIDE", "title": "Screensaver: my bike riding", "shortName": "Ride"}
+   ],
+   "layouts": {
+     "labels": [
