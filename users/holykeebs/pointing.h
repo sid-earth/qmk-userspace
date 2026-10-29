@@ -52,6 +52,7 @@ typedef struct PACKED {
     // (the same shift-targets-the-peripheral convention as the pointing config).
     bool           show_bongo_main;
     bool           show_bongo_peripheral;
+    uint8_t        sid_scene;       // Sid: screensaver scene picked with a key
     uint16_t       last_kc;
     keypos_t       last_pos;
     report_mouse_t last_mouse;

@@ -228,6 +228,7 @@
 #define VIA_INSECURE
 #define VIAL_INSECURE
 
+// ---- Sid's additions ----
 #define SPLIT_MODS_ENABLE       // show held modifiers on the half without USB
-#define OLED_TIMEOUT 60000      // screens go dark after 60 s without keys, wheels or ball
-#define SPLIT_ACTIVITY_ENABLE   // the half without USB follows activity on both halves
+#define OLED_TIMEOUT 300000     // QMK's own screen timeout (5 min); the screensaver manages the rest
+#define SPLIT_ACTIVITY_ENABLE   // both halves know when the keyboard was last used
