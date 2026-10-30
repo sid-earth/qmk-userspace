@@ -1,35 +1,43 @@
 diff --git a/keyboards/holykeebs/keyball61plus/keyball61plus.c b/keyboards/holykeebs/keyball61plus/keyball61plus.c
-index c90b5928cb..00b166052c 100644
+index 3894cc16..a09c8a02 100644
 --- a/keyboards/holykeebs/keyball61plus/keyball61plus.c
 +++ b/keyboards/holykeebs/keyball61plus/keyball61plus.c
-@@ -42,8 +42,7 @@ matrix_row_t matrix_mask[MATRIX_ROWS] = {
+@@ -42,14 +42,15 @@ matrix_row_t matrix_mask[MATRIX_ROWS] = {
  // panels at the driver's base rotation, the peripheral renders the logo
  // rotated 180 (the keyball logo art is drawn for that orientation).
  oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
--    // return rotation;
--    return is_keyboard_left() ? rotation : OLED_ROTATION_270; // rotate only right screen to portrait
-+    return is_keyboard_left() ? rotation : OLED_ROTATION_270;  // Sid: right screen in portrait
+-    return is_keyboard_master() ? rotation : OLED_ROTATION_180;
++    (void)rotation;
++    return OLED_ROTATION_270;  // Sid: both screens in portrait (if the left reads upside down, use OLED_ROTATION_90 for it)
  }
  
  // The peripheral half shows the Keyball logo (this board's heritage), matching
+ // the original keyball lib's oledkit. The master half shows the live info panels
+ // (handled by the holykeebs userspace). Glyphs 0x80..0xAF in the holykeebs
+ // logofont are the logo, laid out 3 rows x 16 columns.
+-void hk_oled_render_secondary(void) {
++__attribute__((weak)) void hk_oled_render_secondary(void) {
+     char ch = 0x80;
+     for (int y = 0; y < 3; y++) {
+         oled_write_P(PSTR("  "), false);
 diff --git a/keyboards/holykeebs/keyball61plus/keymaps/vial/config.h b/keyboards/holykeebs/keyball61plus/keymaps/vial/config.h
-index 68732bd909..f3c7cde1f4 100644
+index 6b476eb6..f3c7cde1 100644
 --- a/keyboards/holykeebs/keyball61plus/keymaps/vial/config.h
 +++ b/keyboards/holykeebs/keyball61plus/keymaps/vial/config.h
 @@ -11,7 +11,7 @@
  // carries the lily58-style mouse buttons. Pointing/scroll behavior comes from the
  // holykeebs userspace.
  #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
--#define AUTO_MOUSE_DEFAULT_LAYER 2
+-#define AUTO_MOUSE_DEFAULT_LAYER 1
 +#define AUTO_MOUSE_DEFAULT_LAYER 2  // Sid: mouse keys live on layer 2
  
  #define DYNAMIC_KEYMAP_LAYER_COUNT 8
  
 diff --git a/keyboards/holykeebs/keyball61plus/keymaps/vial/vial.json b/keyboards/holykeebs/keyball61plus/keymaps/vial/vial.json
-index 9330057d91..d1c0c73488 100644
+index 9330057d..0363eafe 100644
 --- a/keyboards/holykeebs/keyball61plus/keymaps/vial/vial.json
 +++ b/keyboards/holykeebs/keyball61plus/keymaps/vial/vial.json
-@@ -99,7 +99,11 @@
+@@ -99,7 +99,12 @@
        "name": "HK_ENC_SCR_D",
        "title": "Scroll down by one scroll wheel detent",
        "shortName": "Scrl\nDn"
@@ -38,7 +46,8 @@ index 9330057d91..d1c0c73488 100644
 +        {"name": "SID_MOTO", "title": "Screensaver: motorcycle on a night road", "shortName": "Moto"},
 +        {"name": "SID_PINES", "title": "Screensaver: night sky over pines", "shortName": "Pines"},
 +        {"name": "SID_WINDOW", "title": "Screensaver: rainy window", "shortName": "Rain"},
-+        {"name": "SID_RIDE", "title": "Screensaver: my bike riding", "shortName": "Ride"}
++        {"name": "SID_RIDE", "title": "Screensaver: my bike riding", "shortName": "Ride"},
++        {"name": "SID_POMO", "title": "Focus timer: tap to start or pause, hold to reset", "shortName": "Focus"}
    ],
    "layouts": {
      "labels": [

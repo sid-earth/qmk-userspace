@@ -53,6 +53,9 @@ typedef struct PACKED {
     bool           show_bongo_main;
     bool           show_bongo_peripheral;
     uint8_t        sid_scene;       // Sid: screensaver scene picked with a key
+    uint8_t        pomo_phase;      // Sid: focus timer phase (sid_left_draw.h)
+    uint8_t        pomo_left;       // Sid: minutes shown in the timer circle
+    bool           auto_mouse;      // Sid: mouse layer was switched on by the trackball
     uint16_t       last_kc;
     keypos_t       last_pos;
     report_mouse_t last_mouse;

@@ -3,7 +3,7 @@
 #include <string.h>
 
 // Sid: screens and screensaver live in sid_oled.c
-void sid_oled_render_legend(void);
+void sid_oled_render_left(void);
 void sid_oled_render_icons(void);
 bool sid_oled_idle_task(void);
 
@@ -292,8 +292,9 @@ __attribute__((weak)) void hk_oled_render_secondary(void) {
 }
 
 // Sid: screens are bound to sides, not to the USB half.
-// Left = layer legend, right = layer/modifier icons; sid_oled.c's screensaver
-// takes over both when idle. Plain Bongo key still swaps the left legend for bongocat.
+// Left = focus timer + samurai, right = layer/modifier icons, both portrait;
+// sid_oled.c's screensaver takes over both when idle. Bongocat is landscape-only,
+// so the plain Bongo key no longer shows it (Shift + Bongo still starts the saver).
 bool oled_task_user(void) {
     // Blank until this half's state is initialized (peripheral waits for first sync).
     if (!g_hk_state.init) {
@@ -305,21 +306,7 @@ bool oled_task_user(void) {
         return true;
     }
     if (is_keyboard_left()) {
-#ifdef HK_BONGO_ENABLE
-        static bool bongo_shown = false;
-        bool bongo = g_hk_state.display.show_bongo_main;
-        if (bongo != bongo_shown) {
-            bongo_shown = bongo;
-            oled_clear();
-        }
-        if (bongo) {
-            hk_oled_render_bongo();
-        } else {
-            sid_oled_render_legend();
-        }
-#else
-        sid_oled_render_legend();
-#endif
+        sid_oled_render_left();  // focus timer + samurai (portrait)
     } else {
         sid_oled_render_icons();
     }

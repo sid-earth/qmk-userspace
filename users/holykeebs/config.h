@@ -230,5 +230,5 @@
 
 // ---- Sid's additions ----
 #define SPLIT_MODS_ENABLE       // show held modifiers on the half without USB
-#define OLED_TIMEOUT 300000     // QMK's own screen timeout (5 min); the screensaver manages the rest
+#define OLED_TIMEOUT 0          // QMK timeout off: sid_oled.c turns screens off after 5 min (left stays on while the focus timer runs)
 #define SPLIT_ACTIVITY_ENABLE   // both halves know when the keyboard was last used
